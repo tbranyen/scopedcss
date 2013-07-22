@@ -1,2 +1,2 @@
-  return require("scopedcss");
+  return ScopedCss;
 }));

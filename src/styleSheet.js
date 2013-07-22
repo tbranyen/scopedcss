@@ -1,6 +1,4 @@
-define(function(require) {
-
-  var CssRule = require("./cssRule");
+define(["./cssRule"], function(CssRule) {
 
   // Load in the stylesheet.
   var StyleSheet = function(styleTag) {

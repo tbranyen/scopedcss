@@ -8,7 +8,7 @@ module.exports = ->
   @initConfig
 
     # Ensure the dist/ directory stays fresh.
-    clean: 
+    clean:
       default: ["dist", "test/reports"]
 
     # Lint source, node, and test code with some sane options.
@@ -29,8 +29,18 @@ module.exports = ->
           mainConfigFile: "build/config.js"
           optimize: "none"
           out: "dist/scopedcss.js"
-          name: "../build/almond"
+          name: "index"
 
+          # This will strip out the unwanted and unnecessary AMD `define`
+          # wrappers.  Thanks @jreading & @jrbuke.
+          onBuildWrite: (id, path, contents) ->
+            defineExp = /define\(.*?\{/
+            returnExp = /return.*[^return]*$/
+            
+            # Remove AMD ceremony for use without require.js or almond.js.
+            contents = contents.replace(defineExp, "").replace(returnExp, "")
+
+          # Apply the UMD pattern.
           wrap:
             startFile: "build/start.js"
             endFile: "build/end.js"

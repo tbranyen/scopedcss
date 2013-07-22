@@ -1,6 +1,4 @@
-define(function(require) {
-
-  var StyleSheet = require("./styleSheet");
+define(["./styleSheet"], function(StyleSheet) {
 
   // The selectorPrefix is the selector to prefix all style rules with.  The
   // cssText is simply the raw CSS to process.  The styleTag is useful to pass
@@ -41,7 +39,7 @@ define(function(require) {
   // This is the default selector to look for when monitoring.
   ScopedCss.defaultSelector = ":not([data-scopedcss]) style[scoped]";
 
-  // This will monitor a given region for scoped styles.
+  // This will process a given region containing scoped styles.
   ScopedCss.applyTo = function(hostElement) {
     // Default to the body element.
     hostElement = hostElement || document.body;
