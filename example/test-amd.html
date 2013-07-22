@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Test-amd</title>
+</head>
+<body>
+  <script src="require.js"></script>
+
+  <script>
+    require(["../dist/scopedcss"], function(ScopedCss) {
+      var scopedCss = new ScopedCss();
+      console.log(scopedCss);
+    });
+  </script>
+</body>
+</html>

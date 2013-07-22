@@ -1,3 +1,3 @@
-var ScopedCss = require("../dist/scopedcss");
+var ScopedCss = require("../src");
 
 console.log(ScopedCss);

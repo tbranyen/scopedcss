@@ -21,29 +21,14 @@ module.exports = ->
         boss: true
         proto: true
 
-    # Build out the library.
-    requirejs:
-      # The default build.
+    browserify:
       default:
         options:
-          mainConfigFile: "build/config.js"
-          optimize: "none"
-          out: "dist/scopedcss.js"
-          name: "index"
+          standalone: "ScopedCss"
+          debug: true
 
-          # This will strip out the unwanted and unnecessary AMD `define`
-          # wrappers.  Thanks @jreading & @jrbuke.
-          onBuildWrite: (id, path, contents) ->
-            defineExp = /define\(.*?\{/
-            returnExp = /return.*[^return]*$/
-            
-            # Remove AMD ceremony for use without require.js or almond.js.
-            contents = contents.replace(defineExp, "").replace(returnExp, "")
-
-          # Apply the UMD pattern.
-          wrap:
-            startFile: "build/start.js"
-            endFile: "build/end.js"
+        src: ["src/index.js"]
+        dest: "dist/scopedcss.js"
 
     # Provide an optimized version of the library as well.
     uglify:
@@ -104,8 +89,8 @@ module.exports = ->
   # Load external Grunt task plugins.
   @loadNpmTasks "grunt-contrib-clean"
   @loadNpmTasks "grunt-contrib-jshint"
-  @loadNpmTasks "grunt-contrib-requirejs"
   @loadNpmTasks "grunt-contrib-uglify"
+  @loadNpmTasks "grunt-browserify"
 
   # Default task.
-  @registerTask "default", ["clean", "jshint", "requirejs", "uglify"]
+  @registerTask "default", ["clean", "jshint", "browserify", "uglify"]
