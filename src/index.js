@@ -14,6 +14,17 @@ define(["./styleSheet"], function(StyleSheet) {
 
   // Lets try and make this compatible with as many browsers as possible.
   ScopedCss.prototype.process = function() {
+    // Temporary preprecossing code.
+    if (this.styleTag.innerHTML.length) {
+      // Process out the @host.
+      var cssText = this.styleTag.innerHTML;
+
+      // Swap out the `@host` for the `tagName`.
+      cssText = cssText.replace(/\@host/g, this.selectorPrefix);
+
+      this.styleTag.innerHTML = cssText;
+    }
+
     var styleSheet = new StyleSheet(this.styleTag);
     var cssRules = styleSheet.cssRules();
 

@@ -11,7 +11,13 @@ define(function() {
     var parentStyleSheet = this.rule.parentStyleSheet;
     var cssText = this.rule.cssText;
 
-    this.rule.selectorText = prefix + " " + selectorText;
+    // Coerce to single quotes.
+    selectorText = selectorText.replace(/\"/g, "'");
+
+    // Don't scope
+    if (prefix !== selectorText) {
+      this.rule.selectorText = prefix + " " + selectorText;
+    }
 
     if (this.rule.selectorText === selectorText) {
       parentStyleSheet.deleteRule(this.index);
