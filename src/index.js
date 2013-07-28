@@ -63,7 +63,7 @@ define(["./styleSheet"], function(StyleSheet) {
     Array.prototype.slice.call(elements).forEach(function(element) {
       // Create a custom identifier for this element, since scoped doesn't
       // actually exist yet.
-      var id = (+new Date()).toString(16);
+      var id = (+new Date() * Math.random()).toString(16);
       element.parentNode.setAttribute("data-scopedcss", id);
 
       // Create a new scoped stylesheet that we will replace the existing with.

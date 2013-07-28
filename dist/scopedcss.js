@@ -31,7 +31,13 @@
     var parentStyleSheet = this.rule.parentStyleSheet;
     var cssText = this.rule.cssText;
 
-    this.rule.selectorText = prefix + " " + selectorText;
+    // Coerce to single quotes.
+    selectorText = selectorText.replace(/\"/g, "'");
+
+    // Don't scope
+    if (prefix !== selectorText) {
+      this.rule.selectorText = prefix + " " + selectorText;
+    }
 
     if (this.rule.selectorText === selectorText) {
       parentStyleSheet.deleteRule(this.index);
@@ -77,6 +83,17 @@
 
   // Lets try and make this compatible with as many browsers as possible.
   ScopedCss.prototype.process = function() {
+    // Temporary preprecossing code.
+    if (this.styleTag.innerHTML.length) {
+      // Process out the @host.
+      var cssText = this.styleTag.innerHTML;
+
+      // Swap out the `@host` for the `tagName`.
+      cssText = cssText.replace(/\@host/g, this.selectorPrefix);
+
+      this.styleTag.innerHTML = cssText;
+    }
+
     var styleSheet = new StyleSheet(this.styleTag);
     var cssRules = styleSheet.cssRules();
 
@@ -115,7 +132,7 @@
     Array.prototype.slice.call(elements).forEach(function(element) {
       // Create a custom identifier for this element, since scoped doesn't
       // actually exist yet.
-      var id = (+new Date()).toString(16);
+      var id = (+new Date() * Math.random()).toString(16);
       element.parentNode.setAttribute("data-scopedcss", id);
 
       // Create a new scoped stylesheet that we will replace the existing with.
