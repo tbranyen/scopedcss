@@ -1,4 +1,5 @@
 define(["./cssRule"], function(CssRule) {
+  "use strict";
 
   // Load in the stylesheet.
   var StyleSheet = function(styleTag) {
@@ -19,5 +20,4 @@ define(["./cssRule"], function(CssRule) {
   };
 
   return StyleSheet;
-
 });

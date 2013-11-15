@@ -10,14 +10,18 @@
 
   <my-element>
     <h1>This should be green.</h1>
+    <h2>This should be green.</h2>
+    <b>this should be red</b>
   </my-element>
 
   <h1>This should be black.</h1>
+  <h2>This should be black.</h2>
+  <b>this should be black</b>
 
   <script src="../dist/scopedcss.js"></script>
 
   <script>
-    new ScopedCss("my-element", "h1 { color: green; }").appendTo(document.body);
+    new ScopedCss("my-element", "h1, h2 { color: green; } h2 + b { color: red; }").appendTo(document.body);
   </script>
 </body>
 </html>

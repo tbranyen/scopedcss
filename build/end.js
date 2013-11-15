@@ -1,2 +1,2 @@
-  return ScopedCss;
+return ScopedCss;
 }));

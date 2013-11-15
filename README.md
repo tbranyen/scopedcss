@@ -1,45 +1,69 @@
 ScopedCSS
-=========
+---------
 
-**v0.1.0-pre** [![Build
+**v0.1.1** [![Build
 Status](https://travis-ci.org/tbranyen/scopedcss.png?branch=master)](https://travis-ci.org/tbranyen/scopedcss)
 
 Maintained by Tim Branyen [@tbranyen](http://twitter.com/tbranyen).
 
 Part of the HTML 5 specification is the ability to specify CSS relative to a
-host element.  It is virtually unsupported across all browsers.
+host element.  It is virtually unsupported across all browsers.  As we move
+towards a more component driven architecture, it is useful to be able to
+completely isolate CSS to a specific region.
 
 [Specification
 as-is...](http://dev.w3.org/html5/spec-preview/the-style-element.html#attr-style-scoped)
 
 This script is useful to embed into your own Views or framework to allow any
-arbitrary CSS to be prefixed to a given selector.
+arbitrary CSS to be prefixed to a given selector.  It is also wrapped into a
+convenient RequireJS loader plugin for reletive inclusion of CSS and scoping.
 
-## Getting started ##
+### Installing. ###
 
-## Parsing a string of CSS. ##
+This plugin has been registered with Bower, install with:
 
-## Parsing a style element. ##
+``` bash
+bower install scopedcss
+```
 
-## Apply all `scoped` style tags in a given element. ##
+Alternatively you can download the `scopedcss.js` file and place anywhere in
+your project.
 
-## Building ##
+### Including. ###
+
+This library is built with a UMD header, which means that it can be generally
+consumed by any of the popular module loaders that support: AMD, CJS, or
+globals.
+
+To include in your project, simply use a single script tag:
+
+``` markup
+<script src="scopedcss.js"></script>
+```
+
+### Parsing a string of CSS. ###
+
+### Parsing a style element. ###
+
+### Apply all `scoped` style tags in a given element. ###
+
+### Building. ###
 
 ``` bash
 # Install local dependencies.
 npm install -q
 
 # Install `grunt-cli` globally if you haven't already.
-npm install grunt-cli -gq 
+npm install -gq grunt-cli
 
-# Run Grunt if you want to see how the build works.
+# Run `grunt` to generate a build in the `dist/` directory.
 grunt
 ```
 
-## Contributing ##
+### Contributing. ###
 
 Please read and follow the [contribution
-guide](https://github.com/tbranyen/scopedcss/blob/master/contributing.md)
+guide](https://github.com/tbranyen/scopedcss/blob/master/CONTRIBUTING.md)
 before contributing.
 
 **Running the unit tests in the browser**

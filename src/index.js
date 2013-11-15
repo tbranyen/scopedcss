@@ -1,4 +1,5 @@
 define(["./styleSheet"], function(StyleSheet) {
+  "use strict";
 
   // The selectorPrefix is the selector to prefix all style rules with.  The
   // cssText is simply the raw CSS to process.  The styleTag is useful to pass
@@ -12,24 +13,24 @@ define(["./styleSheet"], function(StyleSheet) {
     this.styleTag = styleTag || document.createElement("style");
   };
 
+  // Prepare cssText before pumping into a style tag.
+  ScopedCss.prototype.prepare = function(cssText) {
+    // Swap out the `@host` for the `tagName`.
+    return cssText.replace(/\@host/g, this.selectorPrefix);
+  };
+
   // Lets try and make this compatible with as many browsers as possible.
-  ScopedCss.prototype.process = function() {
+  ScopedCss.prototype.process = function(selectorPrefix) {
     // Temporary preprecossing code.
     if (this.styleTag.innerHTML.length) {
-      // Process out the @host.
-      var cssText = this.styleTag.innerHTML;
-
-      // Swap out the `@host` for the `tagName`.
-      cssText = cssText.replace(/\@host/g, this.selectorPrefix);
-
-      this.styleTag.innerHTML = cssText;
+      this.styleTag.innerHTML = this.prepare(this.styleTag.innerHTML);
     }
 
     var styleSheet = new StyleSheet(this.styleTag);
     var cssRules = styleSheet.cssRules();
 
     cssRules.forEach(function(rule) {
-      rule.applyPrefix(this.selectorPrefix);
+      rule.applyPrefix(selectorPrefix || this.selectorPrefix);
     }, this);
   };
 
@@ -72,5 +73,4 @@ define(["./styleSheet"], function(StyleSheet) {
   };
 
   return ScopedCss;
-
 });
