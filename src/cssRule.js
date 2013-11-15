@@ -7,6 +7,17 @@ define(function() {
     this.index = index;
   };
 
+  /**
+   * Modifies a 
+   *
+   * Examples:
+   *
+   * AuthService.createPasswordHash("somePassword");
+   * //=> n {promiseDispatch: function, valueOf: function, ...}
+   *
+   * @param  {String} password Password to be converted into a hash.
+   * @return {Promise} A promise that represents the hashing success or failure.
+   */
   CssRule.prototype.formatSelector = function(prefix, selectorText) {
     return selectorText.split(",").map(function(selector) {
       return prefix + " " + selector;
@@ -17,19 +28,10 @@ define(function() {
     var flip = 0;
 
     // Parse out all the selector rules and update using `formatSelector`.
-    return cssText.split(" {").map(function(part) {
-      flip = (flip + 1) % 2;
-
+    return cssText.split(" {").map(function(selector) {
       // Only modify every other item.
-      if (flip) {
-        // Parse out all compound selectors.
-        return part.split(", ").map(function(part) {
-          return prefix + " " + part;
-        });
-      }
-
-      return part;
-    }).join(" {");
+      return (flip += 1) % 2 ? this.formatSelector : part;
+    }, this).join(" {");
   };
 
   CssRule.prototype.applyPrefix = function(prefix) {
