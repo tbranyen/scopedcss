@@ -1,22 +1,49 @@
 define(["./cssRule"], function(CssRule) {
   "use strict";
 
-  // Load in the stylesheet.
+  /**
+   * Wraps a native CSSStyleSheet object with methods that help access the
+   * native sheet object and the associated CSSRule objects.
+   *
+   * Examples:
+   *
+   * var styleSheet = new StyleSheet(styleTag);
+   *
+   * @param  {String} A `<style>` tag to extract rules from.
+   */
   var StyleSheet = function(styleTag) {
     this.styleTag = styleTag;
   };
 
+  /**
+   * Accessor for the native sheet object.
+   *
+   * Examples:
+   *
+   * styleSheet.getStyleSheet();
+   *
+   * @return {CSSStyleSheet} The native StyleSheet object.
+   */
   StyleSheet.prototype.getStyleSheet = function() {
     return this.styleTag.sheet;
   };
 
-  // Place the internal style elemeent in whatever host element is provided.
+  /**
+   * Iterates through all of the StyleSheet's native rule objects and replaces
+   * each with a wrapped CssRule.
+   *
+   * Examples:
+   *
+   * var rules = styleSheet.cssRules();
+   *
+   * @return {Array} An array of CssRule objects.
+   */
   StyleSheet.prototype.cssRules = function() {
     var rules = Array.prototype.slice.call(this.getStyleSheet().cssRules);
 
     return rules.map(function(rule, index) {
       return new CssRule(rule, index);
-    }, this);
+    });
   };
 
   return StyleSheet;

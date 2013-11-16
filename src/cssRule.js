@@ -1,39 +1,80 @@
 define(function() {
   "use strict";
 
-  // Single rule definition abstraction.
+  /**
+   * Wraps a native CSSRule object with methods that can augment its internal
+   * selector.
+   *
+   * Examples:
+   *
+   * var cssRule = new CssRule(rule, 0);
+   *
+   * @param  {String} cssRule Native CSSRule object.
+   * @param  {String} index What position the rule is at.
+   */
   var CssRule = function(cssRule, index) {
     this.rule = cssRule;
     this.index = index;
   };
 
   /**
-   * Modifies a 
+   * Breaks a selector down to its unique selectorText.
    *
    * Examples:
    *
-   * AuthService.createPasswordHash("somePassword");
-   * //=> n {promiseDispatch: function, valueOf: function, ...}
+   * cssRule.formatSelector(".prefix", "h1, h2 > *.red");
    *
-   * @param  {String} password Password to be converted into a hash.
-   * @return {Promise} A promise that represents the hashing success or failure.
+   * @param  {String} prefix Unique selector to prefix to the unscoped
+   *                  selector.
+   * @param  {String} selector May contain one or many compound parts.
+   * @return {String} The prefixed selector.
    */
-  CssRule.prototype.formatSelector = function(prefix, selectorText) {
-    return selectorText.split(",").map(function(selector) {
-      return prefix + " " + selector;
-    }).join(",");
+  CssRule.prototype.formatSelector = function(prefix, selector) {
+    return selector.split(", ").map(function(part) {
+      return prefix + " " + part;
+    }).join(", ");
   };
 
+  /**
+   * Browsers that incorrectly support the mutable selectorText property will
+   * have to pass through this code path.  This method takes in the CSSRule
+   * `cssText` property and augments each selector separately.
+   *
+   * Examples:
+   *
+   * cssRule.formatCssText(".prefix", "h1, h2 > *.red { color: red; }");
+   *
+   * @param  {String} prefix Unique selector to prefix to the unscoped
+   *                  selector.
+   * @param  {String} cssText Full from the CSSRule.
+   * @return {String} The prefixed cssText.
+   */
   CssRule.prototype.formatCssText = function(prefix, cssText) {
     var flip = 0;
 
     // Parse out all the selector rules and update using `formatSelector`.
     return cssText.split(" {").map(function(selector) {
       // Only modify every other item.
-      return (flip += 1) % 2 ? this.formatSelector : part;
+      return (++flip % 2) ? this.formatSelector(prefix, selector) : selector;
     }, this).join(" {");
   };
 
+  /**
+   * Facilitates the selectorText prefixing.  Pass in a given prefix and the
+   * internal structure will be modified.  Requires the CSSStyleSheet APIs.
+   *
+   * Description:
+   *
+   * Many browsers do not support directly modifying the `selectorText`
+   * property.  The specified behavior is that the property should be mutable.
+   *
+   * Examples:
+   *
+   * cssRule.applyPrefix(".prefix");
+   *
+   * @param  {String} prefix Unique selector to prefix to the unscoped
+   *                  selector.
+   */
   CssRule.prototype.applyPrefix = function(prefix) {
     var selectorText = this.rule.selectorText;
     var parentStyleSheet = this.rule.parentStyleSheet;

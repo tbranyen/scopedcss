@@ -31,9 +31,9 @@ your project.
 
 ### Including. ###
 
-This library is built with a UMD header, which means that it can be generally
+This library is built with a UMD header, meaning that it can be generally
 consumed by any of the popular module loaders that support: AMD, CJS, or
-globals.
+globals.  This includes RequireJS and Browserify.
 
 To include in your project, simply use a single script tag:
 
@@ -41,11 +41,17 @@ To include in your project, simply use a single script tag:
 <script src="scopedcss.js"></script>
 ```
 
-### Parsing a string of CSS. ###
+### Prefixing a string of CSS. ###
 
-### Parsing a style element. ###
+To prefix a string of CSS 
+
+### Prefixing a style element. ###
+
+To prefix an existing style element, simply
 
 ### Apply all `scoped` style tags in a given element. ###
+
+
 
 ### Building. ###
 

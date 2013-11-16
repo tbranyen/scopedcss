@@ -1,14 +1,12 @@
 {
   "name": "scopedcss",
   "version": "0.1.1",
-  "description": "Implementation of scoped StyleSheets.",
+  "description": "Scoped StyleSheets implementation.",
   "main": "scopedcss.js",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-es6-module-transpiler": "~0.4.1",
     "grunt-contrib-requirejs": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-uglify": "~0.2.2"
+    "grunt-contrib-jshint": "~0.6.0"
   }
 }

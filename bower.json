@@ -1,14 +1,11 @@
 {
   "name": "scopedcss",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./dist/scopedcss.js",
   "ignore": [
     "build",
     "example",
     "node_modules",
-    "src",
-    "test",
-    "demo.html",
     "Gruntfile.coffee",
     "package.json"
   ]
