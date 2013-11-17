@@ -8,5 +8,8 @@
     "node_modules",
     "Gruntfile.coffee",
     "package.json"
-  ]
+  ],
+  "devDependencies": {
+    "qunit": "~1.12.0"
+  }
 }

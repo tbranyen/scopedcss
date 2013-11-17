@@ -1,14 +1,14 @@
 module.exports = ->
   @initConfig
 
-    clean: ["dist", "test/reports"]
+    clean: ["dist", "test/report"]
 
     jshint: ["src/**/*.js"]
 
     requirejs:
       default:
         options:
-          mainConfigFile: "build/config.js"
+          baseUrl: "src"
           optimize: "none"
           out: "scopedcss.js"
           name: "index"
@@ -29,10 +29,8 @@ module.exports = ->
         "--web-security": "no"
 
         coverage:
-          src: ["src/**/*.js"]
+          src: ["src/*.js"]
           instrumentedFiles: "test/tmp"
-          htmlReport: "test/report/coverage"
-          coberturaReport: "test/report"
           lcovReport: "test/report"
           linesThresholdPct: 85
 
@@ -41,11 +39,6 @@ module.exports = ->
   @loadNpmTasks "grunt-contrib-clean"
   @loadNpmTasks "grunt-contrib-jshint"
   @loadNpmTasks "grunt-contrib-requirejs"
-  #@loadNpmTasks "grunt-qunit-istanbul"
+  @loadNpmTasks "grunt-qunit-istanbul"
 
-  @registerTask "default", [
-    "clean"
-    "jshint"
-    "requirejs"
-    #"qunit"
-  ]
+  @registerTask "default", ["clean", "jshint", "requirejs", "qunit"]

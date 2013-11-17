@@ -18,9 +18,7 @@ This script is useful to embed into your own Views or framework to allow any
 arbitrary CSS to be prefixed to a given selector.  It is also wrapped into a
 convenient RequireJS loader plugin for reletive inclusion of CSS and scoping.
 
-### Installing. ###
-
-This plugin has been registered with Bower, install with:
+### Installing with Bower. ###
 
 ``` bash
 bower install scopedcss
@@ -29,16 +27,32 @@ bower install scopedcss
 Alternatively you can download the `scopedcss.js` file and place anywhere in
 your project.
 
-### Including. ###
+### Using. ###
 
 This library is built with a UMD header, meaning that it can be generally
 consumed by any of the popular module loaders that support: AMD, CJS, or
 globals.  This includes RequireJS and Browserify.
 
+#### With Markup. ####
+
 To include in your project, simply use a single script tag:
 
 ``` markup
 <script src="scopedcss.js"></script>
+```
+
+#### With RequireJS. ####
+
+``` javascript
+require({
+  packages: [{
+    name: "scopedcss",
+    main: "src/index",
+    location: "path/to/scopedcss"
+  }]
+}, ["scopedcss"], function(ScopedCss) {
+
+});
 ```
 
 ### Prefixing a string of CSS. ###

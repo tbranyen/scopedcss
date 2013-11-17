@@ -13,6 +13,10 @@ define(["./cssRule"], function(CssRule) {
    */
   var StyleSheet = function(styleTag) {
     this.styleTag = styleTag;
+
+    if (!this.getStyleSheet()) {
+      document.documentElement.appendChild(this.styleTag);
+    }
   };
 
   /**

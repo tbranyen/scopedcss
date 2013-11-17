@@ -60,7 +60,7 @@ define(function() {
   };
 
   /**
-   * Facilitates the selectorText prefixing.  Pass in a given prefix and the
+   * Facilitates the selectorText prefixing.  Pass in a prefix and the
    * internal structure will be modified.  Requires the CSSStyleSheet APIs.
    *
    * Description:

@@ -2,20 +2,29 @@ define(["./styleSheet"], function(StyleSheet) {
   "use strict";
 
   /**
-   * Wraps a native CSSRule object with methods that can augment its internal
-   * selector.
+   * The global construct for assembling scoped style sheets.  This shadows
+   * the functionality within the library in a more convenient API.
    *
    * Examples:
    *
    * // Without passing a style tag.
-   * var scopedCss = new ScopedCss(".prefix", "");
+   * var scopedCss = new ScopedCss(".prefix", "h1 { color: red; }");
    *
-   * @param  {String} cssRule Native CSSRule object.
-   * @param  {String} cssText What position the rule is at.
-   * @param  {Element} styleTag A `<style>` element.
+   * // Passing along your own styleTag element.
+   * var scopedCss = new ScopedCss(".prefix", "h1 { color: red; }", styleTag);
+   *
+   * // Passing along only the prefix.
+   * var scopedCss = new ScopedCss(".prefix");
+   * // And assigning the cssText afterwards.
+   * scopedCss.cssText = "h1 { color: red; }";
+   *
+   * @param  {String} prefix Unique selector to prefix to the unscoped
+   *                  selector.
+   * @param  {String} cssText Content to populate the `<style>` tag with.
+   * @param  {HTMLStyleElement} styleTag Element containing styles to prefix.
    */
-  var ScopedCss = function(selectorPrefix, cssText, styleTag) {
-    this.selectorPrefix = selectorPrefix;
+  var ScopedCss = function(prefix, cssText, styleTag) {
+    this.prefix = prefix;
     this.cssText = cssText;
 
     // Default to an internal `<style>` tag if one wasn't passed.
@@ -25,99 +34,76 @@ define(["./styleSheet"], function(StyleSheet) {
   // This is the default selector to look for when monitoring.
   ScopedCss.defaultSelector = ":not([data-scopedcss]) style[scoped]";
 
-  // Prepare cssText before pumping into a style tag.
   /**
-   * Wraps a native CSSRule object with methods that can augment its internal
-   * selector.
+   * This method replaces all instances of the host keyword with the passed in
+   * prefix.
    *
    * Examples:
    *
-   * // Without passing a style tag.
-   * var scopedCss = new ScopedCss(".prefix", "");
+   * scopedCss.prepare("@host { color: blue; }");
    *
-   * @param  {String} cssRule Native CSSRule object.
-   * @param  {String} index What position the rule is at.
+   * @param  {String} cssText Derived from the style element `innerHTML`.
+   * @return {String} Text prepared to be injected with `innerHTML`.
    */
   ScopedCss.prototype.prepare = function(cssText) {
-    // Swap out the `@host` for the `tagName`.
-    return cssText.replace(/\@host/g, this.selectorPrefix);
+    // Replace `@host` with the prefix.
+    return cssText.replace(/@host/g, this.prefix);
   };
 
-  // Lets try and make this compatible with as many browsers as possible.
   /**
-   * Wraps a native CSSRule object with methods that can augment its internal
-   * selector.
+   * If the styleTag is empty this method will fill it with the prepared
+   * cssText and apply the prefix to every rules.
    *
    * Examples:
    *
-   * // Without passing a style tag.
-   * var scopedCss = new ScopedCss(".prefix", "");
+   * // Optionally pass along a prefix.
+   * scopedCss.process(".prefix");
    *
-   * @param  {String} cssRule Native CSSRule object.
-   * @param  {String} index What position the rule is at.
+   * @param  {String} prefix Optionally specify a prefix to use; this is useful
+   *                  in preloaders who wish to expose a ScopedCss object and
+   *                  not enforce setting the prefix property directly.
    */
-  ScopedCss.prototype.process = function(selectorPrefix) {
-    // Temporary preprecossing code.
-    if (this.styleTag.innerHTML.length) {
-      this.styleTag.innerHTML = this.prepare(this.styleTag.innerHTML);
+  ScopedCss.prototype.process = function(prefix) {
+    // If a prefix override was specified, reset it.
+    if (prefix) {
+      this.prefix = prefix;
+    }
+
+    // Only process the css text if it's provided.
+    if (this.cssText) {
+      this.styleTag.innerHTML = this.prepare(this.cssText);
     }
 
     var styleSheet = new StyleSheet(this.styleTag);
     var cssRules = styleSheet.cssRules();
 
     cssRules.forEach(function(rule) {
-      rule.applyPrefix(selectorPrefix || this.selectorPrefix);
+      rule.applyPrefix(this.prefix);
     }, this);
   };
 
-  // Place the internal style elemeent in whatever host element is provided.
   /**
-   * Wraps a native CSSRule object with methods that can augment its internal
-   * selector.
+   * Static method that processes a given element for any selectors that match
+   * the default selector.  The default selector will find any style elements
+   * that haven't already been prefixed and contain the scoped attribute.
    *
    * Examples:
    *
-   * // Without passing a style tag.
-   * var scopedCss = new ScopedCss(".prefix", "");
+   * // Find all scoped style sheets under the body tag.
+   * ScopedCss.applyTo(document.body);
    *
-   * @param  {String} cssRule Native CSSRule object.
-   * @param  {String} index What position the rule is at.
-   */
-  ScopedCss.prototype.appendTo = function(hostElement) {
-    // Set the contents of the style tag which will be parsed.
-    this.styleTag.innerHTML = this.cssText;
-
-    // Add the style tag to the parent.
-    hostElement.appendChild(this.styleTag);
-
-    // If both the selectorPrefix and cssText are set, process the scope.
-    if (this.selectorPrefix && this.cssText) {
-      this.process();
-    }
-  };
-
-  // This will process a given region containing scoped styles.
-  /**
-   * Wraps a native CSSRule object with methods that can augment its internal
-   * selector.
-   *
-   * Examples:
-   *
-   * // Without passing a style tag.
-   * var scopedCss = new ScopedCss(".prefix", "");
-   *
-   * @param  {String} cssRule Native CSSRule object.
-   * @param  {String} index What position the rule is at.
+   * @param  {String} hostElement What element to find descendent scoped style
+   *                  tags in.
    */
   ScopedCss.applyTo = function(hostElement) {
     // Default to the body element.
     hostElement = hostElement || document.body;
 
     // Query for all the scoped style tags that have not already been
-    // processed.
-    var elements = document.querySelectorAll(this.defaultSelector);
+    // processed, scope to the `hostElement`.
+    var elements = hostElement.querySelectorAll(this.defaultSelector);
 
-    // Coerce to an Array and iterate.
+    // Coerce to an Array and iterate through each matched element.
     Array.prototype.slice.call(elements).forEach(function(element) {
       // Create a custom identifier for this element, since scoped doesn't
       // actually exist yet.
