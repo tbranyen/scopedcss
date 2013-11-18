@@ -73,6 +73,8 @@
     var flip = 0;
 
     // Parse out all the selector rules and update using `formatSelector`.
+    // FIXME Only split on `{` that are not enclosed inside of quotes.  This
+    // should only ever occur in certain edge cases like `content: ' {'`.
     return cssText.split(" {").map(function(selector) {
       // Only modify every other item.
       return (++flip % 2) ? this.formatSelector(prefix, selector) : selector;

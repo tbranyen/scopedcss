@@ -5,5 +5,6 @@ require({
     "src": "../src"
   }
 }, [
-  "spec/index.spec"
+  "spec/index.spec",
+  "spec/cssRule.spec"
 ], QUnit.start);
