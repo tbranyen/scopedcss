@@ -16,4 +16,3 @@
     window.ScopedCss = factory();
   }
 }(this, function() {
-  "use strict";

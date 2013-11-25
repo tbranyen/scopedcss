@@ -61,7 +61,7 @@ To prefix a string of CSS
 
 ### Prefixing a style element. ###
 
-To prefix an existing style element, simply
+To prefix an existing style element, simply k
 
 ### Apply all `scoped` style tags in a given element. ###
 
