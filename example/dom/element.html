@@ -18,10 +18,10 @@
   <h2>This should be black.</h2>
   <b>this should be black</b>
 
-  <script src="../scopedcss.js"></script>
+  <script src="../../scopedcss.js"></script>
 
   <script>
-    new ScopedCss("my-element", "h1, h2 { color: green; } h2 + b { color: red; }").appendTo(document.body);
+    new ScopedCss("my-element", "h1, h2 { color: green; } h2 + b { color: red; }").process();
   </script>
 </body>
 </html>
