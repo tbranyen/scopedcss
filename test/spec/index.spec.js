@@ -35,10 +35,10 @@ define(function(require) {
   test("process prefixing", 2, function() {
     var scopedCss = new ScopedCss(".prefix", "@host { color: red; }");
 
-    scopedCss.process()
+    scopedCss.process();
     equal(scopedCss.styleTag.innerHTML, ".prefix { color: red; }", "Default prefix.");
 
-    scopedCss.process(".different")
+    scopedCss.process(".different");
     equal(scopedCss.styleTag.innerHTML, ".different { color: red; }", "Prefix override.");
   });
 

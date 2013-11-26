@@ -3,7 +3,11 @@ module.exports = ->
 
     clean: ["dist", "test/report"]
 
-    jshint: ["src/**/*.js"]
+    jshint:
+      files: ["src/**/*.js"]
+      test:
+        files:
+          src: "test/spec/*.js"
 
     requirejs:
       default:
