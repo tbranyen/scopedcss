@@ -1,7 +1,7 @@
 ScopedCSS
 ---------
 
-**v0.1.1** [![Build
+**v0.1.0-wip** [![Build
 Status](https://travis-ci.org/tbranyen/scopedcss.png?branch=master)](https://travis-ci.org/tbranyen/scopedcss) [![Coverage Status](https://coveralls.io/repos/tbranyen/scopedcss/badge.png)](https://coveralls.io/r/tbranyen/scopedcss)
 
 Maintained by Tim Branyen [@tbranyen](http://twitter.com/tbranyen).
