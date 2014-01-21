@@ -16,7 +16,6 @@ module.exports = ->
           optimize: "none"
           out: "scopedcss.js"
           name: "index"
-          useStrict: true
 
           onBuildWrite: (id, path, contents) ->
             defineExp = /define\(.*?\{/

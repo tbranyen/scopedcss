@@ -1,5 +1,5 @@
 (function(window, factory) {
-  "use strict";
+  
 
   if (typeof exports === "object") {
     // Node. Does not work with strict CommonJS, but only CommonJS-like
@@ -16,9 +16,10 @@
     window.ScopedCss = factory();
   }
 }(this, function() {
+  
 
 
-  "use strict";
+  
 
   /**
    * Wraps a native CSSRule object with methods that can augment its internal
@@ -125,7 +126,7 @@
 
   
 
-  "use strict";
+  
 
   /**
    * Wraps a native CSSStyleSheet object with methods that help access the
@@ -178,7 +179,7 @@
 
   
 
-  "use strict";
+  
 
   /**
    * The global construct for assembling scoped style sheets.  This shadows
