@@ -6,3 +6,6 @@ branches:
   only:
     - master
     - wip
+
+before_script:
+  - bower install

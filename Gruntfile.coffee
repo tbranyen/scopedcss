@@ -20,7 +20,7 @@ module.exports = ->
 
           onBuildWrite: (id, path, contents) ->
             defineExp = /define\(.*?\{/
-            returnExp = /return.*[^return]*$/
+            returnExp = /return.*[^r][^e][^t][^u][^r][^n]*$/
 
             # Remove AMD wrapper ceremony for standalone use.
             contents = contents.replace(defineExp, "").replace(returnExp, "")
