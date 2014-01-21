@@ -1,5 +1,5 @@
-ScopedCSS **v0.1.0-wip**
-------------------------
+ScopedCSS
+---------
 
 [![Build
 Status](https://travis-ci.org/tbranyen/scopedcss.png?branch=master)](https://travis-ci.org/tbranyen/scopedcss) [![Coverage Status](https://coveralls.io/repos/tbranyen/scopedcss/badge.png)](https://coveralls.io/r/tbranyen/scopedcss)
