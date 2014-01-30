@@ -36,10 +36,10 @@ define(function(require) {
     var scopedCss = new ScopedCss(".prefix", "@host { color: red; }");
 
     scopedCss.process();
-    equal(scopedCss.styleTag.innerHTML, ".prefix { color: red; }", "Default prefix.");
+    equal(scopedCss.styleTag.innerText, ".prefix { color: red; }", "Default prefix.");
 
     scopedCss.process(".different");
-    equal(scopedCss.styleTag.innerHTML, ".different { color: red; }", "Prefix override.");
+    equal(scopedCss.styleTag.innerText, ".different { color: red; }", "Prefix override.");
   });
 
   test("apply to a given region", 2, function() {

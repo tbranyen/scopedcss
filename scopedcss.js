@@ -251,9 +251,13 @@
       this.prefix = prefix;
     }
 
-    // Only process the css text if it's provided.
+    // Only process the cssText if it's provided.
     if (this.cssText) {
-      this.styleTag.innerHTML = this.prepare(this.cssText);
+      var styleText = document.createTextNode(this.prepare(this.cssText));
+
+      // Start with an empty tag.
+      this.styleTag.innerHTML = "";
+      this.styleTag.appendChild(styleText);
     }
 
     var styleSheet = new StyleSheet(this.styleTag);
