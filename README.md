@@ -44,13 +44,13 @@ To include in your project, simply use a single script tag:
 #### With RequireJS. ####
 
 ``` javascript
-require({
-  packages: [{
-    name: "scopedcss",
-    main: "src/index",
-    location: "path/to/scopedcss"
-  }]
-}, ["scopedcss"], function(ScopedCss) {
+require.config({
+  paths: {
+    "scopedcss": "path/to/scopedcss"
+  }
+});
+
+require(["scopedcss"], function(ScopedCss) {
 
 });
 ```
