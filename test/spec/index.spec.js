@@ -1,7 +1,7 @@
 define(function(require) {
   "use strict";
 
-  var ScopedCss = require("src/index");
+  var ScopedCss = require("lib/index");
 
   QUnit.module("index", {
     setup: function() {},

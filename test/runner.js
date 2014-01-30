@@ -2,7 +2,7 @@ QUnit.config.autostart = false;
 
 require({
   paths: {
-    "src": "../src"
+    "lib": "../lib"
   }
 }, [
   "spec/index.spec",

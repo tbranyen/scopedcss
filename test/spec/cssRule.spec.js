@@ -1,7 +1,7 @@
 define(function(require) {
   "use strict";
 
-  var CssRule = require("src/cssRule");
+  var CssRule = require("lib/cssRule");
 
   QUnit.module("cssRule", {
     setup: function() {},

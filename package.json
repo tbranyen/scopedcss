@@ -9,6 +9,7 @@
     "grunt-contrib-requirejs": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-qunit-istanbul": "~0.3.0",
+    "grunt-jscs-checker": "~0.3.2",
     "coveralls": "~2.2.0",
     "bower": "~1.2.6",
     "grunt-cli": "~0.1.11"
