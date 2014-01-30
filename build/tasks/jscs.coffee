@@ -4,6 +4,6 @@ module.exports = ->
     options:
       config: ".jscs.json"
 
-    src: "lib/"
+    src: "lib/**/*.js"
 
   @loadNpmTasks "grunt-jscs-checker"

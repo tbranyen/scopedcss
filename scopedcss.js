@@ -135,7 +135,7 @@
    *
    * var styleSheet = new StyleSheet(styleTag);
    *
-   * @param  {String} A `<style>` tag to extract rules from.
+   * @param {String} styleTag is a `<style>` tag to extract rules from.
    */
   var StyleSheet = function(styleTag) {
     this.styleTag = styleTag;
@@ -286,11 +286,11 @@
     Array.prototype.slice.call(elements).forEach(function(element) {
       // Create a custom identifier for this element, since scoped doesn't
       // actually exist yet.
-      var id = (+new Date() * Math.random()).toString(16);
+      var id = (new Date() * Math.random()).toString(16);
       element.parentNode.setAttribute("data-scopedcss", id);
 
       // Create a new scoped stylesheet that we will replace the existing with.
-      new ScopedCss("[data-scopedcss='" + id +"']", null, element).process();
+      new ScopedCss("[data-scopedcss='" + id + "']", null, element).process();
     });
   };
 
