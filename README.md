@@ -57,26 +57,52 @@ require({
 
 ### Prefixing a string of CSS. ###
 
-To prefix a string of CSS 
+To prefix a string of CSS with a selector.
+
+``` javascript
+var cssText = "h1 { color: black; }";
+
+// Prefix the CSS and extract the new contents.
+var prefixed = new ScopedCss(".prefix", cssText).styleTag.innerHTML;
+```
 
 ### Prefixing a style element. ###
 
-To prefix an existing style element, simply k
+To prefix an existing style element.
+
+``` javascript
+// Find the first style tag.
+var styleTag = document.querySelector("style");
+
+// Create the ScopedCss wrapped instance.
+var scopedCss = new ScopedCss(".prefix", null, styleTag);
+
+// Prefix the CSS.
+scopedCss.process();
+```
 
 ### Apply all `scoped` style tags in a given element. ###
 
+If you want to apply to all nested scoped style elements.
 
+``` javascript
+// Get access to an element.
+var elem = document.querySelector(".content");
+
+// Find all nested <style scoped> tags and process them.
+ScopedCss.applyTo(elem);
+```
 
 ### Building. ###
 
 ``` bash
 # Install local dependencies.
-npm install -q
+npm install
 
 # Install `grunt-cli` globally if you haven't already.
-npm install -gq grunt-cli
+npm install -g grunt-cli
 
-# Run `grunt` to generate a build in the `dist/` directory.
+# Run `grunt` to generate a new scopedcss.js file in the root.
 grunt
 ```
 
