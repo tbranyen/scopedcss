@@ -48,4 +48,54 @@ define(function(require) {
     // Clean up the element after testing.
     style.parentNode.removeChild(style);
   });
+
+  test("alternative code path for browsers that are wrong", 1, function() {
+    var rule = {
+      parentStyleSheet: {
+        deleteRule: function(index) {
+          rule.rules.splice(index, 1);
+        },
+
+        insertRule: function(cssText, index) {
+          rule.rules[index] = cssText;
+        }
+      },
+
+      rules: ["h1 { color: black; }"]
+    };
+    var cssRule = new CssRule(rule, 0);
+
+    // Simulate incorrect browser behavior.
+    Object.defineProperty(rule, "selectorText", {
+      get: function() {
+        var selectorText = rule.rules[0];
+
+        // Coerce to single quotes.
+        selectorText = selectorText.replace(/\"/g, "'");
+
+        return selectorText;
+      },
+
+      set: function() {}
+    });
+
+    Object.defineProperty(rule, "cssText", {
+      get: function() {
+        var selectorText = rule.rules[0];
+
+        // Coerce to single quotes.
+        selectorText = selectorText.replace(/\"/g, "'");
+
+        return selectorText;
+      },
+
+      set: function() {}
+    });
+
+    cssRule.applyPrefix("h2");
+
+    var prefixed = cssRule.rule.selectorText;
+
+    equal(prefixed, "h2 h1 { color: black; }", "can parse selector");
+  });
 });
