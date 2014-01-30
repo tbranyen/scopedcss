@@ -1,7 +1,5 @@
 {
 
-  "maximumLineLength": 80,
-
   "validateJSDoc": {
     "checkParamNames": true,
     "checkRedundantParams": true,
@@ -163,7 +161,6 @@
   "disallowEmptyBlocks": true,
   "disallowSpacesInsideArrayBrackets": true,
   "disallowSpacesInsideParentheses": true,
-  "disallowQuotedKeysInObjects": true,
   "disallowSpaceAfterObjectKeys": true,
   "disallowTrailingWhitespace": true,
   "disallowMixedSpacesAndTabs": "smart"

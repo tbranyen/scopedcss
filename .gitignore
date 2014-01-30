@@ -2,3 +2,4 @@
 /bower_components/
 /dist/
 /test/report/
+/test/tmp/
