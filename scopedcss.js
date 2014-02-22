@@ -140,9 +140,7 @@
   var StyleSheet = function(styleTag) {
     this.styleTag = styleTag;
 
-    if (!this.getStyleSheet()) {
-      document.documentElement.appendChild(this.styleTag);
-    }
+    document.head.appendChild(this.styleTag);
   };
 
   /**
@@ -263,9 +261,12 @@
     var styleSheet = new StyleSheet(this.styleTag);
     var cssRules = styleSheet.cssRules();
 
-    cssRules.forEach(function(rule) {
-      rule.applyPrefix(this.prefix);
-    }, this);
+    // Only mess with the CSS rules if a prefix was specified.
+    if (this.prefix) {
+      cssRules.forEach(function(rule) {
+        rule.applyPrefix(this.prefix);
+      }, this);
+    }
   };
 
   /**
