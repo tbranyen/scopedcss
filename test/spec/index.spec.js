@@ -25,15 +25,15 @@ define(function(require) {
     ok(typeof ScopedCss.defaultSelector === "string", "Is a valid string.");
   });
 
-  test("replace @host", 1, function() {
+  test("replace :host", 1, function() {
     var scopedCss = new ScopedCss(".prefix");
-    var cssText = scopedCss.prepare("@host { color: red; }");
+    var cssText = scopedCss.prepare(":host { color: red; }");
 
     equal(cssText, ".prefix { color: red; }", "Is properly prefixed.");
   });
 
   test("process prefixing", 2, function() {
-    var scopedCss = new ScopedCss(".prefix", "@host { color: red; }");
+    var scopedCss = new ScopedCss(".prefix", ":host { color: red; }");
 
     scopedCss.process();
     equal(scopedCss.styleTag.innerText, ".prefix { color: red; }", "Default prefix.");
