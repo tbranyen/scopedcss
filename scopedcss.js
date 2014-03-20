@@ -17,7 +17,6 @@
   }
 }(this, function() {
 
-
   "use strict";
 
   /**
@@ -96,12 +95,11 @@
    * @param  {String} prefix Unique selector to prefix to the unscoped
    *                  selector.
    */
-  CssRule.prototype.applyPrefix = function(prefix) {
+  CssRule.prototype.applyPrefix = function(prefix, wrapWith) {
     var selectorText = this.rule.selectorText;
     var parentStyleSheet = this.rule.parentStyleSheet;
     var cssText = this.rule.cssText;
 
-    // Coerce to single quotes.
     selectorText = selectorText.replace(/\"/g, "'");
 
     // Don't scope if it's the same selector.
@@ -116,6 +114,9 @@
         // Update the CSS text to account for the prefix.
         cssText = this.formatCssText(prefix, cssText);
 
+        if (wrapWith) {
+          cssText = wrapWith + " {" + cssText + "}";
+        }
         // Swap out the rule with the modified cssText.
         parentStyleSheet.deleteRule(this.index);
         parentStyleSheet.insertRule(cssText, this.index);
@@ -264,7 +265,17 @@
     // Only mess with the CSS rules if a prefix was specified.
     if (this.prefix) {
       cssRules.forEach(function(rule) {
-        rule.applyPrefix(this.prefix);
+        if (rule && rule.rule && rule.rule.media) {
+          var rrc = rule.rule.cssRules;
+          for (var rr = 0; rr < rrc.length; rr++) {
+            var newRule = new CssRule(rrc[rr], 0);
+            newRule.applyPrefix(this.prefix, "@media " + rule.mediaText);
+          }
+        }
+        else
+        {
+          rule.applyPrefix(this.prefix);
+        }
       }, this);
     }
   };
@@ -302,5 +313,6 @@
     });
   };
 
-  return ScopedCss;
+  
+return ScopedCss;
 }));
