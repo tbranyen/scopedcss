@@ -4,7 +4,7 @@
   "description": "Scoped StyleSheets implementation.",
   "main": "scopedcss.js",
   "devDependencies": {
-    "grunt": "~0.4.1",
+    "grunt": "~0.4.4",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-requirejs": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.0",

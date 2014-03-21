@@ -100,6 +100,7 @@
     var parentStyleSheet = this.rule.parentStyleSheet;
     var cssText = this.rule.cssText;
 
+    // Coerce to single quotes.
     selectorText = selectorText.replace(/\"/g, "'");
 
     // Don't scope if it's the same selector.
