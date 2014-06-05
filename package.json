@@ -15,6 +15,7 @@
     "grunt-cli": "~0.1.11"
   },
   "scripts": {
-    "test": "grunt && cat test/report/lcov.info | coveralls"
+    "test": "grunt && cat test/report/lcov.info | coveralls",
+    "browserify": "browserify -g deamdify lib -s ScopedCSS > scopedcss.js"
   }
 }
