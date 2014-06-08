@@ -6,15 +6,8 @@ module.exports = ->
       transform: ["deamdify"]
 
       bundleOptions:
-        standalone: "combyne"
+        standalone: "ScopedCSS"
 
     modern:
-      options:
-        "ignore": ["lib/support/**/*.js"]
-
       files:
-        "dist/combyne.js": ["lib/index.js"]
-
-    legacy:
-      files:
-        "dist/combyne.legacy.js": ["lib/index.js"]
+        "dist/scopedcss.js": ["lib/index.js"]
