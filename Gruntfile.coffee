@@ -5,6 +5,6 @@ module.exports = ->
     "clean"
     "jscs"
     "jshint"
-    "browserify"
+    "synchronizer"
     "qunit"
   ]
