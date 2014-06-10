@@ -1,7 +1,7 @@
 {
   "name": "scopedcss",
-  "version": "0.1.0",
-  "main": "./dist/scopedcss.js",
+  "version": "0.1.1",
+  "main": "dist/scopedcss.js",
   "ignore": [
     "build",
     "example",
