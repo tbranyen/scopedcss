@@ -9,13 +9,12 @@
     "grunt-contrib-requirejs": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-qunit-istanbul": "~0.3.0",
-    "grunt-jscs-checker": "~0.3.2",
+    "grunt-jscs-checker": "~0.4.0",
     "coveralls": "~2.2.0",
     "bower": "~1.2.6",
     "grunt-cli": "~0.1.11"
   },
   "scripts": {
-    "test": "grunt && cat test/report/lcov.info | coveralls",
-    "browserify": "browserify -g deamdify lib -s ScopedCSS > scopedcss.js"
+    "test": "grunt && cat test/report/lcov.info | coveralls"
   }
 }
